@@ -86,3 +86,8 @@ vagrant destroy
 vagrant box remove "trusty32-phpdev-$(date +'%Y%m%d')"
 ```
 
+
+=====
+###List of already generated boxes:
+
+2014-10-11 -> http://dwnl.nulldevelopment.hr/boxes/trusty32-phpdev-20141011.box
