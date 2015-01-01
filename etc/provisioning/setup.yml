@@ -1,8 +1,27 @@
-- include: apt.yml
-- include: usual-packages.yml
-- include: php.yml
-- include: nginx.yml
-- include: mysql-secure.yml
-- include: openjdk-7-jre.yml
-- include: memcached.yml
-- include: elasticsearch.yml
+---
+- hosts: servers
+  vars:
+    - deployer_username: vagrant
+    - php:
+        maxfilesize: '20M'
+    - memcached:
+        ip: 127.0.0.1
+        port: 11211
+    - apache:
+        port: 81
+    - applications: []
+    - mysql:
+        #ip: 127.0.0.1
+        root_password: n0p455
+    - databases: []
+    - database_users: []
+  roles:
+    - ubuntu-server
+    - memcached
+    - php5
+    - openjdk7
+    - nginx
+    - mysql
+    - apache
+    - phpmyadmin
+    #- elasticsearch

@@ -1,8 +1,0 @@
-[servers]
-vagrantbox1 ansible_ssh_host=10.1.0.80 ansible_ssh_user=vagrant
-
-[application]
-vagrantbox1 ansible_ssh_host=10.1.0.80 ansible_ssh_user=vagrant
-
-[db]
-vagrantbox1 ansible_ssh_host=10.1.0.80 ansible_ssh_user=vagrant

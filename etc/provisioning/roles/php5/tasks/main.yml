@@ -1,0 +1,54 @@
+---
+- name: Install PHP stuff
+  apt: pkg="{{ item }}" state=latest update_cache=true
+  sudo: yes
+  with_items:
+    - mysql-client
+    - php5
+    - php5-mysql
+    - php5-mcrypt
+    - php5-intl
+    - php5-curl
+    #- php-apc
+    - php5-memcached
+    - php5-gd
+    - php5-fpm
+    - php5-imagick
+- name: Activates php mods
+  command: php5enmod mcrypt
+  sudo: yes
+
+- lineinfile: "dest=/etc/php5/fpm/pool.d/www.conf regexp='^;listen.owner =' line='listen.owner = www-data'"
+  sudo: yes
+- lineinfile: "dest=/etc/php5/fpm/pool.d/www.conf regexp='^;listen.group =' line='listen.group = www-data'"
+  sudo: yes
+- lineinfile: "dest=/etc/php5/fpm/pool.d/www.conf regexp='^;listen.mode =' line='listen.mode = 0666'"
+  sudo: yes
+
+- lineinfile: "dest={{ item }} state=present regexp='^upload_max_filesize' line='upload_max_filesize = {{ php.maxfilesize }}'"
+  sudo: yes
+  with_items:
+    - /etc/php5/fpm/php.ini
+    - /etc/php5/cli/php.ini
+
+- lineinfile: "dest={{ item }} state=present regexp='^post_max_size' line='post_max_size = {{ php.maxfilesize }}'"
+  sudo: yes
+  with_items:
+    - /etc/php5/fpm/php.ini
+    - /etc/php5/cli/php.ini
+
+- lineinfile: "dest={{ item }} state=present regexp='^session.save_handler' line='session.save_handler = memcached'"
+  sudo: yes
+  with_items:
+    - /etc/php5/fpm/php.ini
+    - /etc/php5/cli/php.ini
+
+- lineinfile: dest={{ item }} backrefs=yes regexp='^;session.save_path' line='session.save_path = "{{ memcached.ip }}:{{ memcached.port }}"'
+  sudo: yes
+  with_items:
+    - /etc/php5/fpm/php.ini
+    - /etc/php5/cli/php.ini
+
+- name: Restart php5-fpm
+  service: name=php5-fpm state=restarted    
+  sudo: yes

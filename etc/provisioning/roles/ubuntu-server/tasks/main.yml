@@ -1,0 +1,18 @@
+---
+
+- name: Update APT
+  apt: update_cache=yes
+  sudo: yes
+
+- name: Upgrade APT
+  apt: upgrade=yes
+  sudo: yes
+
+- name: Install usual packages
+  action: apt name="{{ item }}"
+  with_items:
+    - dstat
+    - joe
+    - git
+    - xz-utils
+  sudo: yes
