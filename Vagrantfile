@@ -5,8 +5,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty32"
 
   config.vm.network "private_network", ip: "10.1.0.80"
+
   config.vm.synced_folder ".", "/vagrant", type: "nfs"
-  
+
   config.vm.provider "virtualbox" do |v|
     v.name ="base-php-dev-box"
     v.customize ["modifyvm", :id, "--memory", 2048]
