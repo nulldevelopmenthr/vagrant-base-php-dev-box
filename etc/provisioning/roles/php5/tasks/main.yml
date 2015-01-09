@@ -25,13 +25,13 @@
 - lineinfile: "dest=/etc/php5/fpm/pool.d/www.conf regexp='^;listen.mode =' line='listen.mode = 0666'"
   sudo: yes
 
-- lineinfile: "dest={{ item }} state=present regexp='^upload_max_filesize' line='upload_max_filesize = {{ php.maxfilesize }}'"
+- lineinfile: "dest={{ item }} state=present regexp='^upload_max_filesize' line='upload_max_filesize = {{ parameters.php.maxfilesize }}'"
   sudo: yes
   with_items:
     - /etc/php5/fpm/php.ini
     - /etc/php5/cli/php.ini
 
-- lineinfile: "dest={{ item }} state=present regexp='^post_max_size' line='post_max_size = {{ php.maxfilesize }}'"
+- lineinfile: "dest={{ item }} state=present regexp='^post_max_size' line='post_max_size = {{ parameters.php.maxfilesize }}'"
   sudo: yes
   with_items:
     - /etc/php5/fpm/php.ini
@@ -43,11 +43,15 @@
     - /etc/php5/fpm/php.ini
     - /etc/php5/cli/php.ini
 
-- lineinfile: dest={{ item }} backrefs=yes regexp='^;session.save_path' line='session.save_path = "{{ memcached.ip }}:{{ memcached.port }}"'
+- lineinfile: dest={{ item }} backrefs=yes regexp='^;session.save_path' line='session.save_path = "{{ parameters.memcached.ip }}:{{ parameters.memcached.port }}"'
   sudo: yes
   with_items:
     - /etc/php5/fpm/php.ini
     - /etc/php5/cli/php.ini
+    
+- name: Fix for PHP5-FPM problems in Ubuntu 14.04
+  sudo: yes
+  lineinfile: dest=/etc/init/php5-fpm.conf line="reload signal USR2" state=present
 
 - name: Restart php5-fpm
   service: name=php5-fpm state=restarted    

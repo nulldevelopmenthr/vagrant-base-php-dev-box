@@ -4,15 +4,15 @@
   sudo: yes
 
 - name: debconf for pma
-  debconf: name=phpmyadmin question='phpmyadmin/app-password-confirm' value='{{ mysql.root_password }}' vtype='password'
+  debconf: name=phpmyadmin question='phpmyadmin/app-password-confirm' value='{{ parameters.mysql.root_password }}' vtype='password'
   sudo: yes
 
 - name: debconf for pma
-  debconf: name=phpmyadmin question='phpmyadmin/mysql/admin-pass' value='{{ mysql.root_password }}' vtype='password'
+  debconf: name=phpmyadmin question='phpmyadmin/mysql/admin-pass' value='{{ parameters.mysql.root_password }}' vtype='password'
   sudo: yes
 
 - name: debconf for pma
-  debconf: name=phpmyadmin question='phpmyadmin/mysql/app-pass' value='{{ mysql.root_password }}' vtype='password'
+  debconf: name=phpmyadmin question='phpmyadmin/mysql/app-pass' value='{{ parameters.mysql.root_password }}' vtype='password'
   sudo: yes
 
 - name: debconf for pma

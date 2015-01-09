@@ -10,10 +10,10 @@
   action: service name=mysql state=started
   sudo: yes
 - name: update mysql root password for all root accounts
-  mysql_user: name=root host={{ item }} password={{ mysql.root_password }} priv=*.*:ALL,GRANT
+  mysql_user: name=root host={{ item }} password={{ parameters.mysql.root_password }} priv=*.*:ALL,GRANT
   sudo: yes
   with_items:
-    - "{{ private_ip }}"
+    - "{{ parameters.mysql.ip }}"
     - 127.0.0.1
     - ::1
     - "%"
@@ -46,10 +46,10 @@
 - name: Add MySQL databases
   action: mysql_db db={{ item.name }} state=present
   sudo: yes
-  with_items: databases
+  with_items: parameters.databases
 
 - name: Add MySQL users (allowing to connect from everywhere)
   mysql_user: name={{ item.username }} host="%" password={{ item.password }} priv={{ item.db_name }}.*:ALL,GRANT
   sudo: yes
-  with_items: database_users
+  with_items: parameters.database_users
 

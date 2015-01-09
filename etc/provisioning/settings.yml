@@ -1,0 +1,29 @@
+---
+parameters:
+  deployer_username: vagrant
+  php:
+    maxfilesize: '20M'
+  memcached:
+    ip: 127.0.0.1
+    port: 11211
+  apache:
+    port: 81
+  applications: []
+  #  - name:     example
+  #    template: application
+  #    domain:   www.example.loc
+  #    path:     /var/www/sites/www.example.loc
+  mysql:
+    ip: 127.0.0.1
+    root_password: n0p455
+  databases: []
+  #- name: example
+  database_users: []
+  #- username:   root
+  #  password:   n0p455
+  #  db_name:    example_%
+  selenium:
+    path:       /usr/lib/selenium
+    log_path:   /var/log/selenium
+    url:        http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
+    filename:   selenium-server-standalone-2.44.0.jar

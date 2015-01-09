@@ -6,18 +6,21 @@
     - start nginx
 
 - name: Make sure that the www sites directory exists
-  action: file path=/var/www/sites state=directory  mode=0777 owner={{ deployer_username }}
+  action: file path=/var/www/sites state=directory  mode=0777 owner={{ parameters.deployer_username }}
   sudo: yes
 
 - name: Push virtual host configurations
-  template: src=nginx/{{ item.template }}.conf dest=/etc/nginx/sites-available/{{ item.domain }}.conf mode=0640
+  template: src=sites-available/{{ item.template }}.conf dest=/etc/nginx/sites-available/{{ item.domain }}.conf mode=0640
   sudo: yes
-  with_items: applications
+  with_items: parameters.applications
   notify:
     - RestartNginx     
-- name: add symlink in nginx sites-enabled
+- name: Add symlink in nginx sites-enabled
   file: src=/etc/nginx/sites-available/{{ item.domain }}.conf dest=/etc/nginx/sites-enabled/{{ item.domain }}.conf state=link
   sudo: yes
-  with_items: applications
+  with_items: parameters.applications
   notify:
-    - RestartNginx   
+    - RestartNginx
+
+- include: ssl.yml
+  sudo: yes
