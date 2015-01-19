@@ -27,3 +27,4 @@ parameters:
     log_path:   /var/log/selenium
     url:        http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
     filename:   selenium-server-standalone-2.44.0.jar
+  timezone: 'UTC'

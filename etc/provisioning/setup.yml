@@ -12,8 +12,8 @@
     - mysql
     - apache
     - phpmyadmin
+    - selenium
     - beanstalkdaemon
     - beanstalkclient
-    - selenium
     #- supervisord
     #- elasticsearch
