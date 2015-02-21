@@ -22,6 +22,10 @@
     - zip
     - google-chrome-stable
 
+- name: remove Google Chrome souce (added when installing google chrome)
+  file: path=/etc/apt/sources.list.d/google-chrome.list state=absent
+  sudo: yes
+
 - name: download chromedriver
   get_url: url=http://chromedriver.storage.googleapis.com/2.13/chromedriver_linux32.zip dest=/home/vagrant/chromedriver_linux32.zip mode=0440
   sudo: yes
