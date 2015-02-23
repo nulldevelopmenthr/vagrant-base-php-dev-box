@@ -9,7 +9,7 @@
   action: apt name="{{ item }}" state=latest update_cache=true
   sudo: yes
   with_items:
-    - elasticsearch      
+    - elasticsearch
 - name: Start the elasticsearch service
   action: service name=elasticsearch state=started
   sudo: yes

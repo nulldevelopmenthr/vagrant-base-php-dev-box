@@ -14,7 +14,7 @@
   sudo: yes
   with_items: parameters.applications
   notify:
-    - RestartNginx     
+    - RestartNginx
 - name: Add symlink in nginx sites-enabled
   file: src=/etc/nginx/sites-available/{{ item.domain }}.conf dest=/etc/nginx/sites-enabled/{{ item.domain }}.conf state=link
   sudo: yes
