@@ -1,6 +1,7 @@
 ---
 - name: Make sure that the ssl directory exsists
   action: file path=/etc/nginx/ssl/ state=directory
+  sudo: yes
 
 - name: Push ssl test key
   copy: src=ssl/{{ item }} dest=/etc/nginx/ssl/{{ item }} mode=0640
@@ -9,3 +10,4 @@
     - server.key
   notify:
     - RestartNginx
+  sudo: yes
