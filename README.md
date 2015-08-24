@@ -3,7 +3,7 @@ vagrant-base-php-dev-box
 
 This repo is used to build base PHP development server box for the purpose of easier creation of application dev boxes later.
 
-Based on Ubuntu Trusty 32-bit (14.04) server.
+Based on Ubuntu Trusty 64-bit (14.04) server.
 
 ###IMPORTANT: 
 NFS is enabled by default, if you are running Windows or see no use for NFS just comment out or remove this line `config.vm.synced_folder ".", "/vagrant", type: "nfs"` from Vagrantfile.
@@ -65,13 +65,13 @@ vagrant up
 
 #####Step 2) After booting, generate package that will be named trusty32-phpdev with current date suffix
 ```
-vagrant package --output "trusty32-phpdev-$(date +'%Y%m%d').box"
+vagrant package --output "trusty64-phpdev-$(date +'%Y%m%d').box"
 ```
 
 
 #####Step 3) Import box to current server
 ```
-vagrant box add --name "trusty32-phpdev-$(date +'%Y%m%d')" "trusty32-phpdev-$(date +'%Y%m%d').box"
+vagrant box add --name "trusty64-phpdev-$(date +'%Y%m%d')" "trusty64-phpdev-$(date +'%Y%m%d').box"
 ```
 
 ###Optional commands:
@@ -83,11 +83,11 @@ vagrant destroy
 
 #####Removing the box from current server (if not needed any more)
 ```
-vagrant box remove "trusty32-phpdev-$(date +'%Y%m%d')"
+vagrant box remove "trusty64-phpdev-$(date +'%Y%m%d')"
 ```
 
 
 =====
 ###List of already generated boxes:
 
-2015-01-03 -> http://dwnl.nulldevelopment.hr/boxes/trusty32-phpdev-20150103.box
+2015-08-25 -> http://dwnl.nulldevelopment.hr/boxes/trusty64-phpdev-20150825.box
